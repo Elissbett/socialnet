@@ -6,6 +6,7 @@ import java.util.Set;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -21,15 +22,6 @@ public class User {
     //TODO:Lazy doesn't work
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> friends;
-
-
-    public Set<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Set<User> friends) {
-        this.friends = friends;
-    }
 
     public User() {}
 
@@ -83,6 +75,14 @@ public class User {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
     }
 
     public static class UserBuilder {

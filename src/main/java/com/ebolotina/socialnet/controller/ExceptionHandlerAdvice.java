@@ -11,6 +11,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public void handleNotFound(EntityNotFoundException e, HttpServletResponse res) {
+        //TODO: log exception
         res.setStatus(404);
     }
 }

@@ -26,7 +26,7 @@ public class Community {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Post> feed;
 
-    Community(){}
+    Community() {}
 
     Community(CommunityBuilder builder) {
         this.name = builder.name;

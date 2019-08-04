@@ -8,8 +8,6 @@ import com.ebolotina.socialnet.repository.CommunityRepository;
 import com.ebolotina.socialnet.repository.MessageRepository;
 import com.ebolotina.socialnet.repository.PostRepository;
 import com.ebolotina.socialnet.repository.UserRepository;
-//import com.mongodb.DB;
-//import com.mongodb.MongoClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,16 +27,14 @@ public class SocialnetApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialnetApplication.class, args);
-//		MongoClient mongoClient = new MongoClient("localhost", 27017);
-//		DB database = mongoClient.getDB("myMongoDb");
-//		mongoClient.getDatabaseNames().forEach(System.out::println);
 	}
 
 	@Bean
-	CommandLineRunner initDatabase(UserRepository repository,
-                                   MessageRepository messageRepository,
-                                   PostRepository postRepository,
-                                   CommunityRepository communityRepository) {
+	public CommandLineRunner initDatabase(
+	        UserRepository repository,
+            MessageRepository messageRepository,
+            PostRepository postRepository,
+            CommunityRepository communityRepository) {
 		return args -> {
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

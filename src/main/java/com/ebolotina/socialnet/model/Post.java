@@ -19,9 +19,9 @@ public class Post {
     private String text;
 
     private Date createdDate;
-    //TODO:как работает hibernate. Стуктура таблиц.
-    //TODO:как хратить ленту
-    //TODO:записи от имени сообщества
+    //TODO: split sequence
+    //TODO: link to community
+    //TODO: interface for posts
 
     public Post() {}
 

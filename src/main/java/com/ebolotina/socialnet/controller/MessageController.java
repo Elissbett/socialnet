@@ -18,12 +18,13 @@ public class MessageController {
 
     @Autowired
     private MessageRepository messageRepository;
+
     @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/messages")
     public List<Message> getMessages(@PathVariable Long userId, @RequestParam Long friendId) {
-        return messageRepository.findByUsers(userId, friendId);
+        return messageRepository.getDialog(userId, friendId);
     }
 
     //TODO: transaction
