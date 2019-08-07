@@ -4,10 +4,12 @@ import com.ebolotina.socialnet.model.Message;
 import com.ebolotina.socialnet.model.User;
 import com.ebolotina.socialnet.repository.MessageRepository;
 import com.ebolotina.socialnet.repository.UserRepository;
+import com.ebolotina.socialnet.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +22,11 @@ public class MessageController {
     private MessageRepository messageRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private MessageService messageService;
 
     @GetMapping("/users/{userId}/messages")
     public List<Message> getMessages(@PathVariable Long userId, @RequestParam Long friendId) {
+
         return messageRepository.getDialog(userId, friendId);
     }
 
@@ -32,14 +35,8 @@ public class MessageController {
     //TODO: message only to friend, black list, policies (?)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/new-message")
-    public MessageRequest saveMessage(@RequestBody MessageRequest message) {
-        User owner = userRepository.getOne(message.owner);
-        User party = userRepository.getOne(message.party);
-        messageRepository.save(message().withText(message.text).withOwner(owner).withParty(party)
-                .withCreatedDate(new Date(System.currentTimeMillis())).withOutgoing(true).build());
-        messageRepository.save(message().withText(message.text).withOwner(party).withParty(owner)
-                .withCreatedDate(new Date(System.currentTimeMillis())).withOutgoing(false).build());
-        return message;
+    public Message saveMessage(@RequestBody MessageRequest message) {
+        return messageService.createMessage(message);
     }
 
     public static class MessageRequest {

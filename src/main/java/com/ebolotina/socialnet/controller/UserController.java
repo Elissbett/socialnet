@@ -24,6 +24,12 @@ public class UserController {
         return repository.findAll();
     }
 
+    @GetMapping("/user/{id}")
+    public User findUser(@PathVariable Long id) {
+        User user = repository.getOne(id);
+        return user;
+    }
+
     @GetMapping("/users/{id}/friends")
     public Set<User> getFriends(@PathVariable Long id) {
         return repository.getOne(id).getFriends();

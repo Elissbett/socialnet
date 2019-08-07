@@ -1,5 +1,6 @@
 package com.ebolotina.socialnet;
 
+import com.ebolotina.socialnet.controller.MessageController;
 import com.ebolotina.socialnet.model.Community;
 import com.ebolotina.socialnet.model.Message;
 import com.ebolotina.socialnet.model.Post;
@@ -8,6 +9,7 @@ import com.ebolotina.socialnet.repository.CommunityRepository;
 import com.ebolotina.socialnet.repository.MessageRepository;
 import com.ebolotina.socialnet.repository.PostRepository;
 import com.ebolotina.socialnet.repository.UserRepository;
+import com.ebolotina.socialnet.service.MessageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +28,7 @@ import static com.ebolotina.socialnet.model.User.user;
 public class SocialnetApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SocialnetApplication.class, args);
+		SpringApplication.run( SocialnetApplication.class, args);
 	}
 
 	@Bean
@@ -34,7 +36,8 @@ public class SocialnetApplication {
 	        UserRepository repository,
             MessageRepository messageRepository,
             PostRepository postRepository,
-            CommunityRepository communityRepository) {
+            CommunityRepository communityRepository,
+            MessageService messageService) {
 		return args -> {
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -60,12 +63,7 @@ public class SocialnetApplication {
 			repository.save(julio);
 			repository.save(carmelita);
 
-			Message message = message().withText("Hey there").withOwner(julio).withParty(carmelita)
-                    .withCreatedDate(new Date(System.currentTimeMillis())).withOutgoing(true).build();
-            Message message1 = message().withText("Hey there").withOwner(carmelita).withParty(jorge)
-                    .withCreatedDate(new Date(System.currentTimeMillis())).withOutgoing(false).build();
-            messageRepository.save(message);
-            messageRepository.save(message1);
+			messageService.createMessage(julio, carmelita, "Hey there");
 
             Post post = post().withAuthor(carmelita).withText("Hi everybody!")
                     .withCreatedDate(new Date(System.currentTimeMillis())).build();
