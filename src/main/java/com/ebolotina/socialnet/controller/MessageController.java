@@ -6,6 +6,7 @@ import com.ebolotina.socialnet.repository.MessageRepository;
 import com.ebolotina.socialnet.repository.UserRepository;
 import com.ebolotina.socialnet.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +26,10 @@ public class MessageController {
     private MessageService messageService;
 
     @GetMapping("/users/{userId}/messages")
-    public List<Message> getMessages(@PathVariable Long userId, @RequestParam Long friendId) {
-
-        return messageRepository.getDialog(userId, friendId);
+    public List<Message> getMessages(@PathVariable Long userId,
+                                     @RequestParam Long friendId,
+                                     Pageable pageable) {
+        return messageRepository.getDialog(userId, friendId, pageable);
     }
 
     //TODO: transaction

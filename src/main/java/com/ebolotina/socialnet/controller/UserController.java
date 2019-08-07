@@ -3,6 +3,7 @@ package com.ebolotina.socialnet.controller;
 import com.ebolotina.socialnet.model.User;
 import com.ebolotina.socialnet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,8 @@ public class UserController {
 
     //TODO: models for rest
     @GetMapping("/users")
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<User> findAll(Pageable pageable) {
+        return repository.findAll(pageable).getContent();
     }
 
     @GetMapping("/user/{id}")
