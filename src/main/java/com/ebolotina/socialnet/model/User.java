@@ -1,5 +1,7 @@
 package com.ebolotina.socialnet.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -19,6 +21,12 @@ public class User {
 
     private Date createdDate;//TODO:create base model
 
+    //@UniqueElements
+    //TODO:unique login
+    private String login; //TODO: how to store login password
+
+    private String password;
+
     //TODO:Lazy doesn't work
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> friends;
@@ -31,6 +39,8 @@ public class User {
         this.dateOfBirth = builder.dateOfBirth;
         this.createdDate = builder.createdDate;
         this.friends = builder.friends;
+        this.login = builder.login;
+        this.password = builder.password;
     }
 
     public static UserBuilder user() {
@@ -92,6 +102,8 @@ public class User {
         private Date dateOfBirth;
         private Date createdDate;
         private Set<User> friends;
+        private String login;
+        private String password;
 
         public UserBuilder withFirstName(String firstName) {
             this.firstName = firstName;
@@ -115,6 +127,16 @@ public class User {
 
         public UserBuilder withFriends(Set<User> friends) {
             this.friends = friends;
+            return this;
+        }
+
+        public UserBuilder withLogin(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserBuilder withPassword(String password) {
+            this.password = password;
             return this;
         }
 

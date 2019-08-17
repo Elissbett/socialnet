@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    //TODO:implement pagination. селектить не все
     @Query("select m from Message m where m.owner.id = :ownerId and m.party.id = :partyId")
     List<Message> getDialog(@Param("ownerId") Long ownerId,
                             @Param("partyId") Long partyId,

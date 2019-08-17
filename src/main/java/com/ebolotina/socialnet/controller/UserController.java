@@ -25,7 +25,7 @@ public class UserController {
         return repository.findAll(pageable).getContent();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public User findUser(@PathVariable Long id) {
         User user = repository.getOne(id);
         return user;

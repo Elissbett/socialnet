@@ -45,14 +45,20 @@ public class SocialnetApplication {
 			User julio = user().withFirstName("Julio").withSecondName("Antonio")
 					.withDateOfBirth(dateFormat.parse("01/03/1993"))
 					.withCreatedDate(new Date(System.currentTimeMillis()))
+					.withLogin("julio")
+					.withPassword("julio")
 					.build();
 			User jorge = user().withFirstName("Jorge").withSecondName("Sanches")
 					.withDateOfBirth(dateFormat.parse("25/05/1998"))
 					.withCreatedDate(new Date(System.currentTimeMillis()))
+					.withLogin("jorge")
+					.withPassword("jorge")
 					.build();
 			User carmelita = user().withFirstName("Carmelita").withSecondName("Rosario")
 					.withDateOfBirth(dateFormat.parse("01/03/1980"))
 					.withCreatedDate(new Date(System.currentTimeMillis()))
+					.withLogin("carmelita")
+					.withPassword("carmelita")
 					.build();
             repository.save(julio);
             repository.save(carmelita);
